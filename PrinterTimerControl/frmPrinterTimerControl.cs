@@ -4,78 +4,17 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using IWshRuntimeLibrary;
+using System.Media;
 
 namespace PrinterTimerControl
 {
     public partial class frmPrinterTimerControl : Form
     {
-        string versione = "1.3"; //modificate le modalità: messaggio, visualizza e stampa, aggiunto il file leggimi.txt che spiega le funzioni del file .config
+        string versione = "1.4"; //aggiunta modalita' sound, cambiato il messaggio di conferma arresto e spostata la classe sostituzione in un file a parte
+        //string versione = "1.3"; //modificate le modalità: messaggio, visualizza e stampa, aggiunto il file leggimi.txt che spiega le funzioni del file .config
         //string versione = "1.2"; // aggiunti campi alla tabella e la possibilità di aprire il file, gestione del file .mig come master, eliminazione della cronologia più vecchia di 3 giorni, corretto bug sul controllo filtrato delle estensioni, valutazione dell'uso del tryparse per il confronto delle date, abbandonata la visualizzazine attraverso una seconda form
         //string versione = "1.1"; //modifica della visualizzazione
-        //string versione = "1.0"; //prima release del programma con aggiunta della gestione dei tipi di file
-        class Sostituzione
-        {
-            // file
-            // Summary:
-            // 
-            //file: S_datacompilazione_orariocompilazione_datafinale.rtf
-            //S_20150923_1146_20150924.rtf
-            int _annoCompilazine;
-            int _meseCompilazione;
-            int _giornoCompilazione;
-            int _oraCompilazione;
-            int _minutiCompilazione;
-            string _nomeFile;
-            public Sostituzione(string nomeFile)
-            {
-                _annoCompilazine = Convert.ToInt32(nomeFile.Split('_')[1].Substring(0, 4));
-                _meseCompilazione = Convert.ToInt32(nomeFile.Split('_')[1].Substring(4, 2));
-                _giornoCompilazione = Convert.ToInt32(nomeFile.Split('_')[1].Substring(6, 2));
-                _oraCompilazione = Convert.ToInt32(nomeFile.Split('_')[2].Substring(0, 2));
-                _minutiCompilazione = Convert.ToInt32(nomeFile.Split('_')[2].Substring(2, 2));
-                _nomeFile = nomeFile;
-            }
-            public bool DataMaggioreData2(string nomeFile2)
-            {
-                int annoCompilazine = Convert.ToInt32(nomeFile2.Split('_')[1].Substring(0, 4));
-                int meseCompilazione = Convert.ToInt32(nomeFile2.Split('_')[1].Substring(4, 2));
-                int giornoCompilazione = Convert.ToInt32(nomeFile2.Split('_')[1].Substring(6, 2));
-                int oraCompilazione = Convert.ToInt32(nomeFile2.Split('_')[2].Substring(0, 2));
-                int minutiCompilazione = Convert.ToInt32(nomeFile2.Split('_')[2].Substring(2, 2));
-                if (_annoCompilazine > annoCompilazine)
-                    return true;
-                else
-                {
-                    if (_meseCompilazione > meseCompilazione)
-                        return true;
-                    else
-                    {
-                        if (_giornoCompilazione > giornoCompilazione)
-                            return true;
-                        else
-                        {
-                            if (_oraCompilazione > oraCompilazione)
-                                return true;
-                            else
-                            {
-                                if (_minutiCompilazione > minutiCompilazione)
-                                    return true;
-                                else
-                                    return false;
-                            }
-                        }
-                    }
-                }
-            }
-            public string NomeFile
-            {
-                get { return _nomeFile; }
-            }
-            public string Estensione()
-            {
-                return _nomeFile.Split('.')[1];
-            }
-        }
+        //string versione = "1.0"; //prima release del programma con aggiunta della gestione dei tipi di file        
         public frmPrinterTimerControl()
         {
             InitializeComponent();
@@ -297,6 +236,11 @@ namespace PrinterTimerControl
                         case "message":
                             MessageBox.Show("E' stato trovato un nuovo file", "Nuova Sostituzione", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             break;
+                        case "sound":
+                            SoundPlayer Player = new SoundPlayer();
+                            Player.SoundLocation = @"Sound\StoreDoorChime.wav";
+                            Player.Play();
+                            break;
                         default: break;
                     }
                 StreamWriter scrivi = new StreamWriter("CronologiaStampe.csv", true);
@@ -373,7 +317,7 @@ namespace PrinterTimerControl
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                DialogResult ris = MessageBox.Show("Sei sicuro di voler arrestare il programma ?", "Arresto in corso...", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                DialogResult ris = MessageBox.Show("Se chiudi il programma non ti arriveranno più notifiche sugli aggiornamenti dei file. \n Sei sicuro di voler arrestare il programma ?", "Attenzione: Arresto in corso...", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (ris == DialogResult.No)
                     e.Cancel = true;
             }
