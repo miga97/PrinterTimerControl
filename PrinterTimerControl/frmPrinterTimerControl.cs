@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
-using IWshRuntimeLibrary;
 using System.Media;
+using Dropbox.Api;
+
 
 namespace PrinterTimerControl
 {
@@ -298,21 +299,21 @@ namespace PrinterTimerControl
         }
         public void AttivaEsecuzioneAutomatica()
         {
-            //Dichiarazione varibili
-            WshShellClass WshShell = new WshShellClass();
-            IWshShortcut NewShortcut;
+        //    //Dichiarazione varibili
+        //    WshShellClass WshShell = new WshShellClass();
+        //    IWshShortcut NewShortcut;
 
-            //Indicate dove creare lo ShortCut
-            NewShortcut = (IWshShortcut)WshShell.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\PrinterTimerControl.lnk");
-            //Indicate la destinazione del link appena creato – Con Application.ExecutablePath indicate l’exe della applicazione che sta creando il link
-            NewShortcut.TargetPath = Application.ExecutablePath;
-            //Descrizione del link appena creato
-            NewShortcut.Description = "Avvia Applicazione PrinterTimerControl";
-            //Indicate il percorso della icona del vostro link
-            //NewShortcut.IconLocation = Application.StartupPath + @"\MiaIco.ico";
-            //Alla fine si salva il link.
-            NewShortcut.Save();
-        }        
+        //    //Indicate dove creare lo ShortCut
+        //    NewShortcut = (IWshShortcut)WshShell.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\PrinterTimerControl.lnk");
+        //    //Indicate la destinazione del link appena creato – Con Application.ExecutablePath indicate l’exe della applicazione che sta creando il link
+        //    NewShortcut.TargetPath = Application.ExecutablePath;
+        //    //Descrizione del link appena creato
+        //    NewShortcut.Description = "Avvia Applicazione PrinterTimerControl";
+        //    //Indicate il percorso della icona del vostro link
+        //    //NewShortcut.IconLocation = Application.StartupPath + @"\MiaIco.ico";
+        //    //Alla fine si salva il link.
+        //    NewShortcut.Save();
+        }
         private void frmPrinterTimerControl_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -337,6 +338,14 @@ namespace PrinterTimerControl
                         MessageBox.Show("Il file selezionato non è più presente nella lista dei file", "Impossibile trovare il file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);
                     }
                 }               
+            }
+        }
+        public async void DropBox()
+        {
+            using (var dbx = new DropboxClient("YOUR ACCESS TOKEN"))
+            {
+                var full = await dbx.Users.GetCurrentAccountAsync();
+                Console.WriteLine("{0} - {1}", full.Name.DisplayName, full.Email);
             }
         }
     }
