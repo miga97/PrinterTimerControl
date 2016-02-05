@@ -1,4 +1,4 @@
-﻿Benvenuto nella versione 1.3 di PrinterTimerControl.
+﻿Benvenuto nella versione 2.0 di PrinterTimerControl.
 Qui di seguito saranno elencate le funzioni del file .config
 
 <Path> Rappresenta il persorso della cartella da controllare
@@ -6,4 +6,5 @@ Qui di seguito saranno elencate le funzioni del file .config
 <AutomaticStart> 'true' 'false' indica che quando si avvia il programma comincia subito a controllare 
 <Function> Rappresenta cosa fare quanto viene trovato un nuovo file. Funzioni disponibili : 'message' 'view' 'print' 'sound'. Possono essere messe più funzioni di seguito separate solo da una virgola
 <FileType> Rappresenta quale file controllare, filtra essi in base all'estenzione. Esempio: 'pdf'
-<Mig> Questo è opzionale, se impostato su 'master' andrà a modificare il file .mig che contiene la data del giorno. E' consigliato abilitare questa funzione solo se la data del computer è sempre aggiornata.
+<UseDropbox> 'true' 'false' Determina se il programma usa una cartella locale o si confronta con Dropbox tramite internet
+<MigMaster> 'true' 'false' Questo è opzionale, se impostato su 'master' andrà a modificare il file .mig che contiene la data del giorno. E' consigliato abilitare questa funzione solo se la data del computer è sempre aggiornata.

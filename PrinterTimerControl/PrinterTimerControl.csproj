@@ -95,17 +95,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CambiaToken.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CambiaToken.Designer.cs">
+      <DependentUpon>CambiaToken.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPrinterTimerControl.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPrinterTimerControl.Designer.cs">
       <DependentUpon>frmPrinterTimerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Impostazioni.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Impostazioni.Designer.cs">
+      <DependentUpon>Impostazioni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DropboxConnection.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Sostituzione.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CambiaToken.resx">
+      <DependentUpon>CambiaToken.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPrinterTimerControl.resx">
       <DependentUpon>frmPrinterTimerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impostazioni.resx">
+      <DependentUpon>Impostazioni.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -118,7 +138,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <Content Include="Impostazioni.config">
+    <Content Include="Data\Impostazioni.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
@@ -144,10 +164,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Leggimi.txt">
+    <Content Include="Data\Leggimi.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sound\StoreDoorChime.wav">
+    <Content Include="Data\Sound\StoreDoorChime.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Treetog-Junior-Document-clock.ico" />
@@ -159,7 +179,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data\Download\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
