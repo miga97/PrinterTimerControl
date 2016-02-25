@@ -19,9 +19,9 @@ namespace PrinterTimerControl
                 DropboxConnection Connection = new DropboxConnection();
                 await Connection.Connetti(txtToken.Text);
                 set.Connection = Connection;
-                StreamWriter tokenFile = new StreamWriter(set.TokenPath);
-                tokenFile.WriteLine(txtToken.Text);
-                tokenFile.Close();                                      
+                if (!Token.SaveCryptTokenSimple(txtToken.Text))
+                    throw new Exception();                  
+                Directory.CreateDirectory(@"Data\Download");
                 Close();
             }
             catch

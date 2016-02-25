@@ -116,6 +116,7 @@
     <Compile Include="Models\DropboxConnection.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Sostituzione.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CambiaToken.resx">

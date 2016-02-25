@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace PrinterTimerControl
 {
     public class Settings
     {
-        public string TokenPath { get; }
         public string Path { get; set; }
         public bool UseDropbox { get; set; }
         private int delay;
@@ -31,8 +26,7 @@ namespace PrinterTimerControl
         public bool MigMaster { get; set; }
         public DropboxConnection Connection { get; set; }
         public Settings()
-        {
-            TokenPath = @"Data\Token.txt";
+        {            
             UseDropbox = false;
             Path = "";
             AutomaticStart = false;

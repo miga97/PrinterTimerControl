@@ -66,23 +66,14 @@ namespace PrinterTimerControl
             }
             File.WriteAllBytes(destinationPath + @"\" + file, data);
         }
-        public async Task Download(string file, string destinationPath)
+        public async void Upload(string folder, string file, string content)
         {
-            byte[] data;
-            //StreamWriter save = new StreamWriter(@"Test\" + file);            
-            using (var response = await Connection.Files.DownloadAsync("/" +file))
-            {
-                data = await response.GetContentAsByteArrayAsync();
-                //Stream io = await response.GetContentAsStreamAsync();                
-                //await save.WriteLineAsync(await response.GetContentAsStringAsync());                
-            }
-            if (!Directory.Exists(destinationPath))
-            {
-                Directory.CreateDirectory(destinationPath);
-            }
-            File.WriteAllBytes(destinationPath +@"\" + file, data);
-            //save.Close();
+            var mem = new MemoryStream(Encoding.UTF8.GetBytes(content));
+            var updated = await Connection.Files.UploadAsync(folder + "/" + file, WriteMode.Overwrite.Instance, body: mem);
         }
-
+        public async void Delete(string folder, string file)
+        {
+            await Connection.Files.DeleteAsync(folder + "/" + file);
+        }
     }
 }

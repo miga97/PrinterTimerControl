@@ -15,7 +15,8 @@ namespace PrinterTimerControl
         {
             CambiaToken tokenChange = new CambiaToken(set);
             tokenChange.ShowDialog();
-            txtInfoToken.Text = set.Connection.EmailAccount;
+            if (set.Connection.Connection != null)
+                txtInfoToken.Text = set.Connection.EmailAccount;
         }
         private void btnCambiaCartellaLocale_Click(object sender, EventArgs e)
         {
@@ -32,21 +33,16 @@ namespace PrinterTimerControl
             {
                 rbtnOnline.Checked = true;
                 if (set.Connection == null)
-                {
-                    StreamReader lettura = new StreamReader(@"Data\Token.txt");
                     try
                     {
                         set.Connection = new DropboxConnection();
-                        await set.Connection.Connetti(lettura.ReadLine());
-                        txtInfoToken.Text = set.Connection.EmailAccount;
+                        await set.Connection.Connetti(Token.OpenCryptTokenSimple());
                     }
                     catch
                     {
-                        MessageBox.Show("Token errato o connessione assente", "Errore di Connessione");                       
+                        MessageBox.Show("Token errato o connessione assente", "Errore di Connessione");
                     }
-                }
-                else
-                    txtInfoToken.Text = set.Connection.EmailAccount;
+                txtInfoToken.Text = set.Connection.EmailAccount;
             }
             txtbCartellaLocale.Text = set.Path;
         }
@@ -80,7 +76,7 @@ namespace PrinterTimerControl
                         File.Delete(file);
                     }
                     Directory.Delete(@"Data\Download");
-                    File.Delete(set.TokenPath);
+                    Token.DeleteFile();
                 }
             }
             if (rbtnOnline.Checked)

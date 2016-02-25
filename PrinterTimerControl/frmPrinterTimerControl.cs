@@ -8,14 +8,16 @@ namespace PrinterTimerControl
 {
     public partial class frmPrinterTimerControl : Form
     {
-        public Settings settings { get; set; }
-        string versione = "2.0"; //riorganizzazione delle impostazioni, create nuove form per gestire le impostazioni, integrazione con dropbox api completata
+        string versione = "2.2"; //criptazione del token di connessione (la classe che gestisce la criptazione non verrà publiccata per preservare la sicurezza)
+        //string versione = "2.1"; //ora il file .mig viene aggiornato anche su dropbox online
+        //string versione = "2.0"; //riorganizzazione delle impostazioni, create nuove form per gestire le impostazioni, integrazione con dropbox api completata
         //string versione = "1.5"; //Collegamento alla cartella dropbox attraverso le dropbox api 
         //string versione = "1.4"; //aggiunta modalita' sound, cambiato il messaggio di conferma arresto e spostata la classe sostituzione in un file a parte
         //string versione = "1.3"; //modificate le modalità: messaggio, visualizza e stampa, aggiunto il file leggimi.txt che spiega le funzioni del file .config
         //string versione = "1.2"; // aggiunti campi alla tabella e la possibilità di aprire il file, gestione del file .mig come master, eliminazione della cronologia più vecchia di 3 giorni, corretto bug sul controllo filtrato delle estensioni, valutazione dell'uso del tryparse per il confronto delle date, abbandonata la visualizzazine attraverso una seconda form
         //string versione = "1.1"; //modifica della visualizzazione
-        //string versione = "1.0"; //prima release del programma con aggiunta della gestione dei tipi di file        
+        //string versione = "1.0"; //prima release del programma con aggiunta della gestione dei tipi di file
+        public Settings settings { get; set; }
         public frmPrinterTimerControl()
         {
             InitializeComponent();
@@ -65,8 +67,7 @@ namespace PrinterTimerControl
         private async void btnStart_Click(object sender, EventArgs e)
         {
             if (settings.Path != "")
-            {
-                //controlla se le impostazioni sono corrette
+            {                
                 btnStart.Enabled = false;
                 btnStop.Enabled = true;
                 lblStatoCorrente.Text = "Attivo";
@@ -75,20 +76,19 @@ namespace PrinterTimerControl
                 dateTimePicker.Enabled = false;
                 tmrTimer.Interval = 60000 * settings.Delay;
                 tmrTimer.Enabled = true;
+                //controlla se le impostazioni sono corrette
                 if (settings.UseDropbox)
-                {
-                    StreamReader lettura = new StreamReader(@"Data\Token.txt");
+                {                    
                     try
-                    {
+                    {                        
                         settings.Connection = new DropboxConnection();
-                        await settings.Connection.Connetti(lettura.ReadLine());
+                        await settings.Connection.Connetti(Token.OpenCryptTokenSimple());                       
                     }
                     catch
-                    {
+                    {                        
                         MessageBox.Show("Token errato o connessione assente", "Errore di Connessione");
                         btnStop_Click(null, null);
                     }
-                    lettura.Close();
                 }
             }
             else
@@ -122,12 +122,16 @@ namespace PrinterTimerControl
                             dateTimePicker.Value = DateTime.Now;
                             if (dateTimePicker.Text != files[i].Split('.')[0])
                             {
-                                File.Delete(settings.Path + @"\" + files[i]);
+                                if (settings.UseDropbox)
+                                    settings.Connection.Delete("", files[i]);
+                                if (File.Exists(settings.Path + @"\" + files[i]))
+                                    File.Delete(settings.Path + @"\" + files[i]);
                                 files[i] = dateTimePicker.Text + ".mig";
                                 StreamWriter mig = new StreamWriter(settings.Path + @"\" + files[i]);
                                 mig.WriteLine(dateTimePicker.Value);
                                 mig.Close();
-                                //System.IO.File.Create(txtbCartellaSelezionata.Text + @"\" + files[i]);
+                                if (settings.UseDropbox)
+                                    settings.Connection.Upload("", files[i], settings.Path + @"\" + files[i]);
                             }
                         }
                         dataCorrente = files[i].Split('.')[0];//data di oggi
@@ -185,7 +189,7 @@ namespace PrinterTimerControl
             {
                 Activate();
                 if (settings.UseDropbox)
-                    await settings.Connection.Download(nomeFile, settings.Path);
+                    await settings.Connection.Download("",nomeFile, settings.Path);
                 string[] mod = settings.Function.Split(',');
                 for (int i = 0; i < mod.Length; i++)
                     switch (mod[i])
@@ -215,13 +219,23 @@ namespace PrinterTimerControl
         }               
         private async void tmrTimer_Tick(object sender, EventArgs e)
         {
+
             if (!settings.UseDropbox)
-                ControllaModifiche(Directory.GetFiles(settings.Path));
+            {
+                try
+                {
+                    ControllaModifiche(Directory.GetFiles(settings.Path));
+                }
+                catch
+                {
+                    MessageBox.Show("Errore nel controllo dei file, la connessione potrebbe essere assente", "Errore",MessageBoxButtons.OK,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button1);
+                }
+            }
             else
             {
                 await settings.Connection.RefreshFileList();
                 ControllaModifiche(settings.Connection.FileList);
-            }
+            }       
         }
         private void btnCronologiStampa_Click(object sender, EventArgs e)
         {
@@ -294,7 +308,6 @@ namespace PrinterTimerControl
             Impostazioni impostazioni = new Impostazioni(settings);
             impostazioni.ShowDialog();
             btnCronologiStampa_Click(null, null);
-        }        
-        
+        }                
     }
 }
