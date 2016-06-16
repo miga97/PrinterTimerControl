@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.IO;
+using IWshRuntimeLibrary;
+
 namespace PrinterTimerControl
 {
     public partial class Impostazioni : Form
@@ -68,12 +70,12 @@ namespace PrinterTimerControl
             set.Delay = Convert.ToInt32(nudIntervalloTempo.Value);
             if (rbtnOnline.Checked && !set.UseDropbox || rbtnLocale.Checked && set.UseDropbox)
             {
-                File.Delete(@"Data\CronologiaStampe.csv");
+                System.IO.File.Delete(@"Data\CronologiaStampe.csv");
                 if (rbtnLocale.Checked && set.UseDropbox)
                 {
                     foreach (string file in Directory.GetFiles(@"Data\Download"))
                     {
-                        File.Delete(file);
+                        System.IO.File.Delete(file);
                     }
                     Directory.Delete(@"Data\Download");
                     Token.DeleteFile();
@@ -90,14 +92,14 @@ namespace PrinterTimerControl
             if (set.AutomaticStart)
             {
                 scrivi.WriteLine("<AutomaticStart>True");
-                //AttivaEsecuzioneAutomatica();
+                AttivaEsecuzioneAutomatica();
             }
             else
             {
                 scrivi.WriteLine("<AutomaticStart>False");
                 try
                 {
-                    //System.IO.File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup) +@"\PrinterTimerControl.lnk");
+                    System.IO.File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\PrinterTimerControl.lnk");
                 }
                 catch
                 {
@@ -116,20 +118,12 @@ namespace PrinterTimerControl
         }
         public void AttivaEsecuzioneAutomatica()
         {
-            //    //Dichiarazione varibili
-            //    WshShellClass WshShell = new WshShellClass();
-            //    IWshShortcut NewShortcut;
-
-            //    //Indicate dove creare lo ShortCut
-            //    NewShortcut = (IWshShortcut)WshShell.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\PrinterTimerControl.lnk");
-            //    //Indicate la destinazione del link appena creato – Con Application.ExecutablePath indicate l’exe della applicazione che sta creando il link
-            //    NewShortcut.TargetPath = Application.ExecutablePath;
-            //    //Descrizione del link appena creato
-            //    NewShortcut.Description = "Avvia Applicazione PrinterTimerControl";
-            //    //Indicate il percorso della icona del vostro link
-            //    //NewShortcut.IconLocation = Application.StartupPath + @"\MiaIco.ico";
-            //    //Alla fine si salva il link.
-            //    NewShortcut.Save();
+            var wsh = new IWshShell_Class();
+            string programPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\PrinterTimerControl.lnk";
+            IWshShortcut shortcut = wsh.CreateShortcut(programPath) as IWshShortcut;            
+            shortcut.Description = "Avvia Applicazione PrinterTimerControl";
+            shortcut.TargetPath = Application.ExecutablePath;
+            shortcut.Save();            
         }
         private void btnSalva_Click(object sender, EventArgs e)
         {

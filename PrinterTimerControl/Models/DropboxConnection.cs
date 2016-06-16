@@ -10,7 +10,7 @@ using System.IO;
 
 namespace PrinterTimerControl
 {
-    public class DropboxConnection
+    public class DropboxConnection //1.0 build 25022016
     {
         public DropboxClient Connection { get; set; }
         public string NomeAccount { get; set; }
@@ -54,7 +54,7 @@ namespace PrinterTimerControl
             FileList = lista.ToArray();
         }
         public async Task Download(string folder, string file, string destinationPath)
-        {
+        {            
             byte[] data;
             using (var response = await Connection.Files.DownloadAsync(folder + "/" + file))
             {

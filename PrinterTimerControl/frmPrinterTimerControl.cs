@@ -8,10 +8,11 @@ namespace PrinterTimerControl
 {
     public partial class frmPrinterTimerControl : Form
     {
-        string versione = "2.2"; //criptazione del token di connessione (la classe che gestisce la criptazione non verrà publiccata per preservare la sicurezza)
+        string versione = "2.3"; //creazione di collegamenti nella cartella di avvio automatico
+        //string versione = "2.2"; //criptazione del token di connessione (la classe che gestisce la criptazione non verrà publiccata per preservare la sicurezza)
         //string versione = "2.1"; //ora il file .mig viene aggiornato anche su dropbox online
         //string versione = "2.0"; //riorganizzazione delle impostazioni, create nuove form per gestire le impostazioni, integrazione con dropbox api completata
-        //string versione = "1.5"; //Collegamento alla cartella dropbox attraverso le dropbox api 
+        //string versione = "1.5"; //Accesso alla cartella dropbox attraverso le dropbox api 
         //string versione = "1.4"; //aggiunta modalita' sound, cambiato il messaggio di conferma arresto e spostata la classe sostituzione in un file a parte
         //string versione = "1.3"; //modificate le modalità: messaggio, visualizza e stampa, aggiunto il file leggimi.txt che spiega le funzioni del file .config
         //string versione = "1.2"; // aggiunti campi alla tabella e la possibilità di aprire il file, gestione del file .mig come master, eliminazione della cronologia più vecchia di 3 giorni, corretto bug sul controllo filtrato delle estensioni, valutazione dell'uso del tryparse per il confronto delle date, abbandonata la visualizzazine attraverso una seconda form
@@ -281,7 +282,7 @@ namespace PrinterTimerControl
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                DialogResult ris = MessageBox.Show("Se chiudi il programma non ti arriveranno più notifiche sugli aggiornamenti dei file. \n Sei sicuro di voler arrestare il programma ?", "Attenzione: Arresto in corso...", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                DialogResult ris = MessageBox.Show("Se chiudi il programma non ti arriveranno più notifiche sugli aggiornamenti dei file. \n Sei sicuro di voler arrestare il programma ?", "Attenzione: Arresto in corso...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (ris == DialogResult.No)
                     e.Cancel = true;
             }
