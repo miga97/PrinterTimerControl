@@ -30,6 +30,7 @@ namespace PrinterTimerControl
         private async void Impostazioni_Load(object sender, EventArgs e)
         {
             chckAccensioneAutomatica.Checked = set.AutomaticStart;
+            chckStampaAutomatica.Checked = set.AutomaticPrint;
             nudIntervalloTempo.Value = set.Delay;
             if (set.UseDropbox)
             {
@@ -65,7 +66,18 @@ namespace PrinterTimerControl
         }
         public void SalvaImpostazioniCorrenti()
         {
-            set.AutomaticStart = chckAccensioneAutomatica.Checked;
+            if (chckAccensioneAutomatica.Checked)
+            {
+                set.AutomaticStart = true;
+                AttivaEsecuzioneAutomatica();
+            }
+            else
+            {
+                set.AutomaticStart = false;
+                string pathLnk = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+                if (System.IO.File.Exists(pathLnk))                
+                    System.IO.File.Delete(pathLnk + @"\PrinterTimerControl.lnk");
+            }
             set.Path = txtbCartellaLocale.Text;
             set.Delay = Convert.ToInt32(nudIntervalloTempo.Value);
             if (rbtnOnline.Checked && !set.UseDropbox || rbtnLocale.Checked && set.UseDropbox)
@@ -81,40 +93,9 @@ namespace PrinterTimerControl
                     Token.DeleteFile();
                 }
             }
-            if (rbtnOnline.Checked)
-                set.UseDropbox = true;
-            else
-                set.UseDropbox = false;
-
-            StreamWriter scrivi = new StreamWriter(@"Data\Impostazioni.config");
-            scrivi.WriteLine("<Path>" + set.Path);
-            scrivi.WriteLine("<Delay>" + set.Delay);
-            if (set.AutomaticStart)
-            {
-                scrivi.WriteLine("<AutomaticStart>True");
-                AttivaEsecuzioneAutomatica();
-            }
-            else
-            {
-                scrivi.WriteLine("<AutomaticStart>False");
-                try
-                {
-                    System.IO.File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\PrinterTimerControl.lnk");
-                }
-                catch
-                {
-
-                }
-            }
-            if (set.UseDropbox)
-                scrivi.WriteLine("<UseDropbox>True");
-            else
-                scrivi.WriteLine("<UseDropbox>False");
-            scrivi.WriteLine("<Function>" + set.Function);
-            scrivi.WriteLine("<FileType>" + set.FileType);
-            if (set.MigMaster)
-                scrivi.WriteLine("<MigMaster>True");
-            scrivi.Close();
+            set.UseDropbox = rbtnOnline.Checked;
+            set.AutomaticPrint = chckStampaAutomatica.Checked;
+            set.SalvaXML(@"Data\Impostazioni.xml");
         }
         public void AttivaEsecuzioneAutomatica()
         {

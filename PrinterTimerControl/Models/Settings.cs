@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using System.Xml.Linq;
+
 namespace PrinterTimerControl
 {
     public class Settings
@@ -21,7 +26,7 @@ namespace PrinterTimerControl
             }
         }
         public bool AutomaticStart { get; set; }
-        public string Function { get; set; }
+        public bool AutomaticPrint { get; set; }
         public string FileType { get; set; }
         public bool MigMaster { get; set; }
         public DropboxConnection Connection { get; set; }
@@ -30,10 +35,52 @@ namespace PrinterTimerControl
             UseDropbox = false;
             Path = "";
             AutomaticStart = false;
-            Function = "message";
+            AutomaticPrint = false;
             FileType = "*";
             MigMaster = false;
             Delay = 1;
         }
+        public bool CaricaXML(string filePath)
+        {
+            bool impostazioniCorrette = false;
+            XmlDocument fileXML = new XmlDocument();
+            fileXML.Load(filePath);
+            XmlNode set = fileXML.DocumentElement;
+            
+            foreach (XmlNode item in set.ChildNodes)
+            {
+                switch (item.Name)
+                {
+                    case "Path": Path = item.InnerText; break;
+                    case "UseDropbox": UseDropbox = Convert.ToBoolean(item.InnerText); break;
+                    case "Delay": Delay = Convert.ToInt32(item.InnerText); break;
+                    case "AutomaticStart": AutomaticStart = Convert.ToBoolean(item.InnerText); break;
+                    case "AutomaticPrint": AutomaticPrint = Convert.ToBoolean(item.InnerText); break;
+                    case "FileType": FileType = item.InnerText.ToLower(); break;
+                    case "MigMaster": MigMaster = Convert.ToBoolean(item.InnerText); break;
+                    default: impostazioniCorrette = false; break;
+                }
+            }
+            return impostazioniCorrette;
+        }
+        public void SalvaXML(string filePath)
+        {
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.OmitXmlDeclaration = false;
+            settings.NewLineOnAttributes = true;
+            XmlWriter writer = XmlWriter.Create(filePath, settings);
+            writer.WriteStartElement("Settings");
+            writer.WriteElementString("Path", Path);
+            writer.WriteElementString("Delay", Delay.ToString());
+            writer.WriteElementString("AutomaticStart", AutomaticStart.ToString());
+            writer.WriteElementString("UseDropbox", UseDropbox.ToString());
+            writer.WriteElementString("AutomaticPrint", AutomaticPrint.ToString());
+            writer.WriteElementString("FileType", FileType);
+            if (MigMaster)
+                writer.WriteElementString("MigMaster", "True");
+            writer.WriteEndElement();
+            writer.Flush();
+        }       
     }
 }

@@ -1,10 +1,10 @@
-﻿Benvenuto nella versione 2.2 di PrinterTimerControl.
-Qui di seguito saranno elencate le funzioni del file .config
+﻿Benvenuto nella versione 2.4 di PrinterTimerControl.
+Qui di seguito saranno elencate le funzioni del file Impostazioni.xml
 
 <Path> Rappresenta il persorso della cartella da controllare
 <Delay> Rappresenta il tempo da aspettare prima di procedere con un nuovo controllo
 <AutomaticStart> 'true' 'false' indica che quando si avvia il programma comincia subito a controllare 
-<Function> Rappresenta cosa fare quanto viene trovato un nuovo file. Funzioni disponibili : 'message' 'view' 'print' 'sound'. Possono essere messe più funzioni di seguito separate solo da una virgola
+<AutomaticPrint> 'true' 'false' Se attivo, invece di essere stampato a schermo, il file inviato alla stampante 
 <FileType> Rappresenta quale file controllare, filtra essi in base all'estenzione. Esempio: 'pdf'
 <UseDropbox> 'true' 'false' Determina se il programma usa una cartella locale o si confronta con Dropbox tramite internet
 <MigMaster> 'true' 'false' Questo è opzionale, se impostato su 'true' andrà a modificare il file .mig che contiene la data del giorno. E' consigliato abilitare questa funzione solo se la data del computer è sempre aggiornata.

@@ -42,24 +42,27 @@
             this.fbdCartella = new System.Windows.Forms.FolderBrowserDialog();
             this.btnSalva = new System.Windows.Forms.Button();
             this.btnAnnulla = new System.Windows.Forms.Button();
+            this.chckStampaAutomatica = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudIntervalloTempo)).BeginInit();
             this.SuspendLayout();
             // 
             // chckAccensioneAutomatica
             // 
+            this.chckAccensioneAutomatica.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.chckAccensioneAutomatica.AutoSize = true;
             this.chckAccensioneAutomatica.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chckAccensioneAutomatica.Location = new System.Drawing.Point(13, 14);
+            this.chckAccensioneAutomatica.Location = new System.Drawing.Point(13, 43);
             this.chckAccensioneAutomatica.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chckAccensioneAutomatica.Name = "chckAccensioneAutomatica";
-            this.chckAccensioneAutomatica.Size = new System.Drawing.Size(332, 24);
+            this.chckAccensioneAutomatica.Size = new System.Drawing.Size(320, 24);
             this.chckAccensioneAutomatica.TabIndex = 12;
-            this.chckAccensioneAutomatica.Text = "Aggiungi il programma all\'avvio automatico";
+            this.chckAccensioneAutomatica.Text = "Esegui il programma all\'avvio di Windows";
             this.chckAccensioneAutomatica.UseVisualStyleBackColor = true;
             // 
             // nudIntervalloTempo
             // 
-            this.nudIntervalloTempo.Location = new System.Drawing.Point(234, 51);
+            this.nudIntervalloTempo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.nudIntervalloTempo.Location = new System.Drawing.Point(234, 80);
             this.nudIntervalloTempo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nudIntervalloTempo.Maximum = new decimal(new int[] {
             360,
@@ -82,8 +85,9 @@
             // 
             // lblTempo
             // 
+            this.lblTempo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblTempo.AutoSize = true;
-            this.lblTempo.Location = new System.Drawing.Point(13, 53);
+            this.lblTempo.Location = new System.Drawing.Point(13, 82);
             this.lblTempo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTempo.Name = "lblTempo";
             this.lblTempo.Size = new System.Drawing.Size(213, 20);
@@ -92,8 +96,8 @@
             // 
             // btnCambiaCartellaLocale
             // 
-            this.btnCambiaCartellaLocale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCambiaCartellaLocale.Location = new System.Drawing.Point(276, 129);
+            this.btnCambiaCartellaLocale.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnCambiaCartellaLocale.Location = new System.Drawing.Point(276, 158);
             this.btnCambiaCartellaLocale.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCambiaCartellaLocale.Name = "btnCambiaCartellaLocale";
             this.btnCambiaCartellaLocale.Size = new System.Drawing.Size(254, 35);
@@ -104,9 +108,8 @@
             // 
             // txtbCartellaLocale
             // 
-            this.txtbCartellaLocale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbCartellaLocale.Location = new System.Drawing.Point(13, 133);
+            this.txtbCartellaLocale.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.txtbCartellaLocale.Location = new System.Drawing.Point(13, 162);
             this.txtbCartellaLocale.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtbCartellaLocale.Name = "txtbCartellaLocale";
             this.txtbCartellaLocale.ReadOnly = true;
@@ -115,8 +118,9 @@
             // 
             // lblSceltaPosizioneCartella
             // 
+            this.lblSceltaPosizioneCartella.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblSceltaPosizioneCartella.AutoSize = true;
-            this.lblSceltaPosizioneCartella.Location = new System.Drawing.Point(9, 97);
+            this.lblSceltaPosizioneCartella.Location = new System.Drawing.Point(9, 126);
             this.lblSceltaPosizioneCartella.Name = "lblSceltaPosizioneCartella";
             this.lblSceltaPosizioneCartella.Size = new System.Drawing.Size(273, 20);
             this.lblSceltaPosizioneCartella.TabIndex = 15;
@@ -124,9 +128,10 @@
             // 
             // rbtnLocale
             // 
+            this.rbtnLocale.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.rbtnLocale.AutoSize = true;
             this.rbtnLocale.Checked = true;
-            this.rbtnLocale.Location = new System.Drawing.Point(288, 97);
+            this.rbtnLocale.Location = new System.Drawing.Point(288, 126);
             this.rbtnLocale.Name = "rbtnLocale";
             this.rbtnLocale.Size = new System.Drawing.Size(81, 24);
             this.rbtnLocale.TabIndex = 16;
@@ -136,8 +141,9 @@
             // 
             // rbtnOnline
             // 
+            this.rbtnOnline.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.rbtnOnline.AutoSize = true;
-            this.rbtnOnline.Location = new System.Drawing.Point(375, 97);
+            this.rbtnOnline.Location = new System.Drawing.Point(375, 126);
             this.rbtnOnline.Name = "rbtnOnline";
             this.rbtnOnline.Size = new System.Drawing.Size(161, 24);
             this.rbtnOnline.TabIndex = 17;
@@ -147,9 +153,8 @@
             // 
             // txtInfoToken
             // 
-            this.txtInfoToken.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInfoToken.Location = new System.Drawing.Point(152, 176);
+            this.txtInfoToken.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.txtInfoToken.Location = new System.Drawing.Point(152, 205);
             this.txtInfoToken.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfoToken.Name = "txtInfoToken";
             this.txtInfoToken.ReadOnly = true;
@@ -158,8 +163,9 @@
             // 
             // lblDropbox
             // 
+            this.lblDropbox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblDropbox.AutoSize = true;
-            this.lblDropbox.Location = new System.Drawing.Point(9, 179);
+            this.lblDropbox.Location = new System.Drawing.Point(9, 208);
             this.lblDropbox.Name = "lblDropbox";
             this.lblDropbox.Size = new System.Drawing.Size(136, 20);
             this.lblDropbox.TabIndex = 18;
@@ -167,8 +173,9 @@
             // 
             // btnCambiaToken
             // 
+            this.btnCambiaToken.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCambiaToken.Enabled = false;
-            this.btnCambiaToken.Location = new System.Drawing.Point(455, 172);
+            this.btnCambiaToken.Location = new System.Drawing.Point(455, 201);
             this.btnCambiaToken.Name = "btnCambiaToken";
             this.btnCambiaToken.Size = new System.Drawing.Size(75, 35);
             this.btnCambiaToken.TabIndex = 19;
@@ -178,7 +185,8 @@
             // 
             // btnSalva
             // 
-            this.btnSalva.Location = new System.Drawing.Point(455, 213);
+            this.btnSalva.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnSalva.Location = new System.Drawing.Point(455, 242);
             this.btnSalva.Name = "btnSalva";
             this.btnSalva.Size = new System.Drawing.Size(76, 35);
             this.btnSalva.TabIndex = 20;
@@ -188,8 +196,9 @@
             // 
             // btnAnnulla
             // 
+            this.btnAnnulla.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(373, 213);
+            this.btnAnnulla.Location = new System.Drawing.Point(373, 242);
             this.btnAnnulla.Name = "btnAnnulla";
             this.btnAnnulla.Size = new System.Drawing.Size(76, 35);
             this.btnAnnulla.TabIndex = 20;
@@ -197,12 +206,25 @@
             this.btnAnnulla.UseVisualStyleBackColor = true;
             this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
             // 
+            // chckStampaAutomatica
+            // 
+            this.chckStampaAutomatica.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.chckStampaAutomatica.AutoSize = true;
+            this.chckStampaAutomatica.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chckStampaAutomatica.Location = new System.Drawing.Point(14, 9);
+            this.chckStampaAutomatica.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chckStampaAutomatica.Name = "chckStampaAutomatica";
+            this.chckStampaAutomatica.Size = new System.Drawing.Size(262, 24);
+            this.chckStampaAutomatica.TabIndex = 12;
+            this.chckStampaAutomatica.Text = "Stampa in automatico i nuovi file";
+            this.chckStampaAutomatica.UseVisualStyleBackColor = true;
+            // 
             // Impostazioni
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnAnnulla;
-            this.ClientSize = new System.Drawing.Size(543, 256);
+            this.ClientSize = new System.Drawing.Size(543, 285);
             this.ControlBox = false;
             this.Controls.Add(this.btnAnnulla);
             this.Controls.Add(this.btnSalva);
@@ -214,10 +236,11 @@
             this.Controls.Add(this.btnCambiaCartellaLocale);
             this.Controls.Add(this.txtInfoToken);
             this.Controls.Add(this.txtbCartellaLocale);
+            this.Controls.Add(this.chckStampaAutomatica);
             this.Controls.Add(this.chckAccensioneAutomatica);
             this.Controls.Add(this.nudIntervalloTempo);
             this.Controls.Add(this.lblTempo);
-            this.MaximumSize = new System.Drawing.Size(565, 312);
+            this.MaximumSize = new System.Drawing.Size(565, 400);
             this.MinimumSize = new System.Drawing.Size(565, 312);
             this.Name = "Impostazioni";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -245,5 +268,6 @@
         private System.Windows.Forms.FolderBrowserDialog fbdCartella;
         private System.Windows.Forms.Button btnSalva;
         private System.Windows.Forms.Button btnAnnulla;
+        private System.Windows.Forms.CheckBox chckStampaAutomatica;
     }
 }

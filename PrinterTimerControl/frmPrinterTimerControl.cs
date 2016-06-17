@@ -4,11 +4,14 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Media;
+using System.Threading.Tasks;
+
 namespace PrinterTimerControl
 {
     public partial class frmPrinterTimerControl : Form
     {
-        string versione = "2.3"; //creazione di collegamenti nella cartella di avvio automatico
+        string versione = "2.4"; //sostituito il file di configurazione con uno in XML, apportate migliorie nella visualizzazione dei file, alla classe Sostituzione e alla gestione delle impostazioni, aggiunta la gestione della stampa da parte dell'utente, ora la visualizzazione a schermo continua a suonare finchè non confermi di averla guardata
+        //string versione = "2.3"; //creazione di collegamenti nella cartella di avvio automatico
         //string versione = "2.2"; //criptazione del token di connessione (la classe che gestisce la criptazione non verrà publiccata per preservare la sicurezza)
         //string versione = "2.1"; //ora il file .mig viene aggiornato anche su dropbox online
         //string versione = "2.0"; //riorganizzazione delle impostazioni, create nuove form per gestire le impostazioni, integrazione con dropbox api completata
@@ -19,6 +22,7 @@ namespace PrinterTimerControl
         //string versione = "1.1"; //modifica della visualizzazione
         //string versione = "1.0"; //prima release del programma con aggiunta della gestione dei tipi di file
         public Settings settings { get; set; }
+        public bool Viewed { get; set; }
         public frmPrinterTimerControl()
         {
             InitializeComponent();
@@ -27,36 +31,17 @@ namespace PrinterTimerControl
         {
             settings = new Settings();                       
             Text = "Printer Timer Control rev. " + versione;            
-            bool imprecisioneImpostazioni = false;
             try
-            {
-                string riga;
-                StreamReader leggi = new StreamReader(@"Data\Impostazioni.config");
-                while (!leggi.EndOfStream)
-                {
-                    riga = leggi.ReadLine();
-                    switch (riga.Split('>')[0])
-                    {
-                        case "<Path": settings.Path = riga.Split('>')[1]; break;
-                        case "<UseDropbox": settings.UseDropbox = Convert.ToBoolean(riga.Split('>')[1]); break;
-                        case "<Delay": settings.Delay = Convert.ToInt32(riga.Split('>')[1]); break;
-                        case "<AutomaticStart": settings.AutomaticStart = Convert.ToBoolean(riga.Split('>')[1]); break;
-                        case "<Function": settings.Function = riga.Split('>')[1].ToLower(); break;
-                        case "<FileType": settings.FileType = riga.Split('>')[1].ToLower(); break;
-                        case "<MigMaster": settings.MigMaster = Convert.ToBoolean(riga.Split('>')[1]); break;
-                        default: imprecisioneImpostazioni = true; break;
-                    }
-                }
-                leggi.Close();
+            {                
+                if (settings.CaricaXML(@"Data\Impostazioni.xml"))
+                    MessageBox.Show("E' stato trovato un errore nel file di configurazione del programma. Contattare l'amministratore", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 btnCronologiStampa_Click(null, null);
                 if (settings.UseDropbox)
                     settings.Path = @"Data\Download";
                 if (settings.MigMaster)
                     dateTimePicker.Visible = true;
                 else
-                    dateTimePicker.Visible = false;
-                if (imprecisioneImpostazioni)                
-                    MessageBox.Show("E' stato trovato un errore nel file di configurazione del programma. Contattare l'amministratore", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dateTimePicker.Visible = false; 
                 if (settings.AutomaticStart)
                     btnStart_Click(null, null);
             }
@@ -67,8 +52,8 @@ namespace PrinterTimerControl
         }
         private async void btnStart_Click(object sender, EventArgs e)
         {
-            if (settings.Path != "")
-            {                
+            if (settings.Path != "" || Directory.Exists(settings.Path))
+            {
                 btnStart.Enabled = false;
                 btnStop.Enabled = true;
                 lblStatoCorrente.Text = "Attivo";
@@ -76,21 +61,23 @@ namespace PrinterTimerControl
                 btnImpostazioni.Enabled = false;
                 dateTimePicker.Enabled = false;
                 tmrTimer.Interval = 60000 * settings.Delay;
-                tmrTimer.Enabled = true;
                 //controlla se le impostazioni sono corrette
                 if (settings.UseDropbox)
-                {                    
+                {
                     try
-                    {                        
+                    {
                         settings.Connection = new DropboxConnection();
-                        await settings.Connection.Connetti(Token.OpenCryptTokenSimple());                       
+                        await settings.Connection.Connetti(Token.OpenCryptTokenSimple());
+                        tmrTimer.Enabled = true;
                     }
                     catch
-                    {                        
+                    {
                         MessageBox.Show("Token errato o connessione assente", "Errore di Connessione");
                         btnStop_Click(null, null);
                     }
                 }
+                else
+                    tmrTimer.Enabled = true;
             }
             else
                 MessageBox.Show("Impossibile avviare il controllo, percorso mancante. Cambiare le Impostazioni", "Avvio Fallito", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
@@ -118,6 +105,7 @@ namespace PrinterTimerControl
                     files[i] = files[i].Split('\\')[files[i].Split('\\').Length - 1];
                     if (files[i].Split('.')[files[i].Split('.').Length - 1] == "mig")
                     {
+                        #region MigMaster
                         if (settings.MigMaster)//se il programma è settato per salvare la data di oggi
                         {
                             dateTimePicker.Value = DateTime.Now;
@@ -135,6 +123,7 @@ namespace PrinterTimerControl
                                     settings.Connection.Upload("", files[i], settings.Path + @"\" + files[i]);
                             }
                         }
+                        #endregion
                         dataCorrente = files[i].Split('.')[0];//data di oggi
                         break;
                     }
@@ -148,13 +137,13 @@ namespace PrinterTimerControl
                 }
                 foreach (Sostituzione file in fileSostituzioni)
                 {
-                    if (file.Estensione() == settings.FileType || settings.FileType == "*") //controlla in base al filtro se il file è da stampare
+                    if (file.Estensione == settings.FileType || settings.FileType == "*") //controlla in base al filtro se il file è da stampare
                     {
                         if (daStampare == "")
                             daStampare = file.NomeFile;
                         else
                         {
-                            if (file.DataMaggioreData2(daStampare))
+                            if (file.DataMaggioreDi(daStampare))
                                 daStampare = file.NomeFile;
                         }
                     }
@@ -188,44 +177,62 @@ namespace PrinterTimerControl
             }
             if (stampa)
             {
-                Activate();
                 if (settings.UseDropbox)
-                    await settings.Connection.Download("",nomeFile, settings.Path);
-                string[] mod = settings.Function.Split(',');
-                for (int i = 0; i < mod.Length; i++)
-                    switch (mod[i])
+                    try
                     {
-                        case "print":
-                            prssStampa.StartInfo.FileName = settings.Path + "\\" + nomeFile;
-                            prssStampa.Start();
-                            break;
-                        case "view":
-                            System.Diagnostics.Process.Start(settings.Path + "\\" + nomeFile);
-                            break;
-                        case "message":
-                            MessageBox.Show("E' stato trovato un nuovo file", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case "sound":
-                            SoundPlayer Player = new SoundPlayer();
-                            Player.SoundLocation = @"Data\Sound\StoreDoorChime.wav";
-                            Player.Play();
-                            break;
-                        default: break;
+                        await settings.Connection.Download("", nomeFile, settings.Path);
                     }
+                    catch
+                    {
+                        try
+                        {
+                            await settings.Connection.Download("", nomeFile, settings.Path);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Controllare la connessione a Internet, la connessione potrebbe essere assente", "Errore di Connessione",MessageBoxButtons.OK,MessageBoxIcon.Error,MessageBoxDefaultButton.Button1);
+                            return;
+                        }
+                    }
+                
+                // Sound
+                SoundPlayer Player = new SoundPlayer();
+                Player.SoundLocation = @"Data\Sound\StoreDoorChime.wav";
+                Player.Play();                
+                if (settings.AutomaticPrint)
+                {
+                    // Print
+                    prssStampa.StartInfo.FileName = settings.Path + "\\" + nomeFile;
+                    prssStampa.Start();
+                }
+                else
+                {
+                    Viewed = false;
+                    Remember();
+                    // Message
+                    Activate();
+                    MessageBox.Show("E' stato trovato un nuovo file", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Viewed = true;
+                    // View File
+                    System.Diagnostics.Process.Start(settings.Path + "\\" + nomeFile);
+                }
+                                        
+
                 StreamWriter scrivi = new StreamWriter(@"Data\CronologiaStampe.csv", true);
                 scrivi.WriteLine(nomeFile + ";" + nomeFile.Substring(8, 2) + "/" + nomeFile.Substring(6, 2) + "/" + nomeFile.Substring(2, 4) + ";" + nomeFile.Substring(11, 2) + ":" + nomeFile.Substring(13, 2) + ";" + nomeFile.Substring(22, 2) + "/" + nomeFile.Substring(20, 2) + "/" + nomeFile.Substring(16, 4) + ";" + DateTime.Now);
                 scrivi.Close();
                 btnCronologiStampa_Click(null, null);
+
             }
         }               
         private async void tmrTimer_Tick(object sender, EventArgs e)
         {
-
-            if (!settings.UseDropbox)
+            if (settings.UseDropbox)
             {
                 try
                 {
-                    ControllaModifiche(Directory.GetFiles(settings.Path));
+                    await settings.Connection.RefreshFileList();
+                    ControllaModifiche(settings.Connection.FileList);                    
                 }
                 catch
                 {
@@ -234,9 +241,8 @@ namespace PrinterTimerControl
             }
             else
             {
-                await settings.Connection.RefreshFileList();
-                ControllaModifiche(settings.Connection.FileList);
-            }       
+                ControllaModifiche(Directory.GetFiles(settings.Path));
+            }
         }
         private void btnCronologiStampa_Click(object sender, EventArgs e)
         {
@@ -273,6 +279,7 @@ namespace PrinterTimerControl
                 fileTemporaneo.Close();
                 fileCronologia.Close();
                 File.Copy(@"Data\temp.csv", @"Data\CronologiaStampe.csv",true);
+                File.Delete(@"Data\temp.csv");
             }
             catch
             {                
@@ -310,5 +317,17 @@ namespace PrinterTimerControl
             impostazioni.ShowDialog();
             btnCronologiStampa_Click(null, null);
         }                
+        private async void Remember()
+        {//serve per continuare a suonare finchè il nuovo file no viene visto
+            while(!Viewed)
+            {
+                // Sound
+                SoundPlayer Player = new SoundPlayer();
+                Player.SoundLocation = @"Data\Sound\StoreDoorChime.wav";
+                Player.Play();
+
+                await Task.Delay(10000); //ogni 10 secondi
+            }
+        }
     }
 }
