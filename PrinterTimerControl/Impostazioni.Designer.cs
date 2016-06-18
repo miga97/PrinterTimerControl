@@ -55,7 +55,8 @@
             this.chckAccensioneAutomatica.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chckAccensioneAutomatica.Name = "chckAccensioneAutomatica";
             this.chckAccensioneAutomatica.Size = new System.Drawing.Size(320, 24);
-            this.chckAccensioneAutomatica.TabIndex = 12;
+            this.chckAccensioneAutomatica.TabIndex = 2;
+            this.chckAccensioneAutomatica.Tag = "";
             this.chckAccensioneAutomatica.Text = "Esegui il programma all\'avvio di Windows";
             this.chckAccensioneAutomatica.UseVisualStyleBackColor = true;
             // 
@@ -76,7 +77,8 @@
             0});
             this.nudIntervalloTempo.Name = "nudIntervalloTempo";
             this.nudIntervalloTempo.Size = new System.Drawing.Size(112, 26);
-            this.nudIntervalloTempo.TabIndex = 11;
+            this.nudIntervalloTempo.TabIndex = 3;
+            this.nudIntervalloTempo.Tag = "";
             this.nudIntervalloTempo.Value = new decimal(new int[] {
             1,
             0,
@@ -101,7 +103,8 @@
             this.btnCambiaCartellaLocale.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCambiaCartellaLocale.Name = "btnCambiaCartellaLocale";
             this.btnCambiaCartellaLocale.Size = new System.Drawing.Size(254, 35);
-            this.btnCambiaCartellaLocale.TabIndex = 14;
+            this.btnCambiaCartellaLocale.TabIndex = 7;
+            this.btnCambiaCartellaLocale.Tag = "";
             this.btnCambiaCartellaLocale.Text = "Scegli cartella";
             this.btnCambiaCartellaLocale.UseVisualStyleBackColor = true;
             this.btnCambiaCartellaLocale.Click += new System.EventHandler(this.btnCambiaCartellaLocale_Click);
@@ -114,7 +117,9 @@
             this.txtbCartellaLocale.Name = "txtbCartellaLocale";
             this.txtbCartellaLocale.ReadOnly = true;
             this.txtbCartellaLocale.Size = new System.Drawing.Size(255, 26);
-            this.txtbCartellaLocale.TabIndex = 13;
+            this.txtbCartellaLocale.TabIndex = 11;
+            this.txtbCartellaLocale.TabStop = false;
+            this.txtbCartellaLocale.Tag = "";
             // 
             // lblSceltaPosizioneCartella
             // 
@@ -123,7 +128,7 @@
             this.lblSceltaPosizioneCartella.Location = new System.Drawing.Point(9, 126);
             this.lblSceltaPosizioneCartella.Name = "lblSceltaPosizioneCartella";
             this.lblSceltaPosizioneCartella.Size = new System.Drawing.Size(273, 20);
-            this.lblSceltaPosizioneCartella.TabIndex = 15;
+            this.lblSceltaPosizioneCartella.TabIndex = 11;
             this.lblSceltaPosizioneCartella.Text = "Posizione della cartella da controllare:";
             // 
             // rbtnLocale
@@ -134,8 +139,9 @@
             this.rbtnLocale.Location = new System.Drawing.Point(288, 126);
             this.rbtnLocale.Name = "rbtnLocale";
             this.rbtnLocale.Size = new System.Drawing.Size(81, 24);
-            this.rbtnLocale.TabIndex = 16;
+            this.rbtnLocale.TabIndex = 4;
             this.rbtnLocale.TabStop = true;
+            this.rbtnLocale.Tag = "5";
             this.rbtnLocale.Text = "Locale";
             this.rbtnLocale.UseVisualStyleBackColor = true;
             // 
@@ -146,7 +152,8 @@
             this.rbtnOnline.Location = new System.Drawing.Point(375, 126);
             this.rbtnOnline.Name = "rbtnOnline";
             this.rbtnOnline.Size = new System.Drawing.Size(161, 24);
-            this.rbtnOnline.TabIndex = 17;
+            this.rbtnOnline.TabIndex = 5;
+            this.rbtnOnline.Tag = "5";
             this.rbtnOnline.Text = "Online -> Dropbox";
             this.rbtnOnline.UseVisualStyleBackColor = true;
             this.rbtnOnline.CheckedChanged += new System.EventHandler(this.rbtnOnline_CheckedChanged);
@@ -159,7 +166,9 @@
             this.txtInfoToken.Name = "txtInfoToken";
             this.txtInfoToken.ReadOnly = true;
             this.txtInfoToken.Size = new System.Drawing.Size(296, 26);
-            this.txtInfoToken.TabIndex = 13;
+            this.txtInfoToken.TabIndex = 12;
+            this.txtInfoToken.TabStop = false;
+            this.txtInfoToken.Tag = "";
             // 
             // lblDropbox
             // 
@@ -178,7 +187,8 @@
             this.btnCambiaToken.Location = new System.Drawing.Point(455, 201);
             this.btnCambiaToken.Name = "btnCambiaToken";
             this.btnCambiaToken.Size = new System.Drawing.Size(75, 35);
-            this.btnCambiaToken.TabIndex = 19;
+            this.btnCambiaToken.TabIndex = 8;
+            this.btnCambiaToken.Tag = "";
             this.btnCambiaToken.Text = "Cambia";
             this.btnCambiaToken.UseVisualStyleBackColor = true;
             this.btnCambiaToken.Click += new System.EventHandler(this.btnCambiaToken_Click);
@@ -189,7 +199,8 @@
             this.btnSalva.Location = new System.Drawing.Point(455, 242);
             this.btnSalva.Name = "btnSalva";
             this.btnSalva.Size = new System.Drawing.Size(76, 35);
-            this.btnSalva.TabIndex = 20;
+            this.btnSalva.TabIndex = 10;
+            this.btnSalva.Tag = "";
             this.btnSalva.Text = "Salva";
             this.btnSalva.UseVisualStyleBackColor = true;
             this.btnSalva.Click += new System.EventHandler(this.btnSalva_Click);
@@ -201,7 +212,8 @@
             this.btnAnnulla.Location = new System.Drawing.Point(373, 242);
             this.btnAnnulla.Name = "btnAnnulla";
             this.btnAnnulla.Size = new System.Drawing.Size(76, 35);
-            this.btnAnnulla.TabIndex = 20;
+            this.btnAnnulla.TabIndex = 9;
+            this.btnAnnulla.Tag = "";
             this.btnAnnulla.Text = "Annulla";
             this.btnAnnulla.UseVisualStyleBackColor = true;
             this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
@@ -215,16 +227,18 @@
             this.chckStampaAutomatica.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chckStampaAutomatica.Name = "chckStampaAutomatica";
             this.chckStampaAutomatica.Size = new System.Drawing.Size(262, 24);
-            this.chckStampaAutomatica.TabIndex = 12;
+            this.chckStampaAutomatica.TabIndex = 1;
+            this.chckStampaAutomatica.Tag = "";
             this.chckStampaAutomatica.Text = "Stampa in automatico i nuovi file";
             this.chckStampaAutomatica.UseVisualStyleBackColor = true;
             // 
             // Impostazioni
             // 
+            this.AcceptButton = this.btnSalva;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnAnnulla;
-            this.ClientSize = new System.Drawing.Size(543, 285);
+            this.ClientSize = new System.Drawing.Size(543, 290);
             this.ControlBox = false;
             this.Controls.Add(this.btnAnnulla);
             this.Controls.Add(this.btnSalva);
@@ -244,6 +258,7 @@
             this.MinimumSize = new System.Drawing.Size(565, 312);
             this.Name = "Impostazioni";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Tag = "";
             this.Text = "Impostazioni";
             this.Load += new System.EventHandler(this.Impostazioni_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudIntervalloTempo)).EndInit();

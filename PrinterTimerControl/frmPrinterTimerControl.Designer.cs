@@ -58,7 +58,7 @@
             this.lblStato.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStato.Name = "lblStato";
             this.lblStato.Size = new System.Drawing.Size(52, 20);
-            this.lblStato.TabIndex = 0;
+            this.lblStato.TabIndex = 8;
             this.lblStato.Text = "Stato:";
             // 
             // lblStatoCorrente
@@ -69,12 +69,13 @@
             this.lblStatoCorrente.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStatoCorrente.Name = "lblStatoCorrente";
             this.lblStatoCorrente.Size = new System.Drawing.Size(61, 20);
-            this.lblStatoCorrente.TabIndex = 1;
+            this.lblStatoCorrente.TabIndex = 9;
             this.lblStatoCorrente.Text = "Inattivo";
             // 
             // btnStop
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStop.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnStop.Enabled = false;
             this.btnStop.ForeColor = System.Drawing.Color.DarkRed;
             this.btnStop.Location = new System.Drawing.Point(533, 14);
@@ -94,7 +95,7 @@
             this.btnStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(112, 35);
-            this.btnStart.TabIndex = 3;
+            this.btnStart.TabIndex = 1;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
@@ -106,7 +107,7 @@
             this.btnCronologiStampa.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCronologiStampa.Name = "btnCronologiStampa";
             this.btnCronologiStampa.Size = new System.Drawing.Size(164, 35);
-            this.btnCronologiStampa.TabIndex = 10;
+            this.btnCronologiStampa.TabIndex = 5;
             this.btnCronologiStampa.Text = "Ricarica Cronologia";
             this.btnCronologiStampa.UseVisualStyleBackColor = true;
             this.btnCronologiStampa.Click += new System.EventHandler(this.btnCronologiStampa_Click);
@@ -150,7 +151,7 @@
             this.dgvCronologia.ReadOnly = true;
             this.dgvCronologia.RowHeadersVisible = false;
             this.dgvCronologia.Size = new System.Drawing.Size(752, 237);
-            this.dgvCronologia.TabIndex = 11;
+            this.dgvCronologia.TabIndex = 4;
             this.dgvCronologia.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCronologia_CellContentClick);
             // 
             // clmnNomeFile
@@ -204,7 +205,7 @@
             this.lblUltimoControllo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUltimoControllo.Name = "lblUltimoControllo";
             this.lblUltimoControllo.Size = new System.Drawing.Size(154, 20);
-            this.lblUltimoControllo.TabIndex = 12;
+            this.lblUltimoControllo.TabIndex = 6;
             this.lblUltimoControllo.Text = "Ultimo Controllo: Mai";
             // 
             // dateTimePicker
@@ -215,7 +216,7 @@
             this.dateTimePicker.Location = new System.Drawing.Point(247, 16);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(159, 26);
-            this.dateTimePicker.TabIndex = 13;
+            this.dateTimePicker.TabIndex = 7;
             // 
             // btnImpostazioni
             // 
@@ -225,7 +226,7 @@
             this.btnImpostazioni.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnImpostazioni.Name = "btnImpostazioni";
             this.btnImpostazioni.Size = new System.Drawing.Size(112, 35);
-            this.btnImpostazioni.TabIndex = 2;
+            this.btnImpostazioni.TabIndex = 3;
             this.btnImpostazioni.Text = "Impostazioni";
             this.btnImpostazioni.UseVisualStyleBackColor = true;
             this.btnImpostazioni.Click += new System.EventHandler(this.btnImpostazioni_Click);
@@ -249,6 +250,7 @@
             this.MinimumSize = new System.Drawing.Size(700, 400);
             this.Name = "frmPrinterTimerControl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Tag = "0";
             this.Text = "Printer Timer Control";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPrinterTimerControl_FormClosing);
             this.Load += new System.EventHandler(this.frmPrinterTimerControl_Load);

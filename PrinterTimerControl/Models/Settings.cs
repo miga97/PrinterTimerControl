@@ -81,6 +81,7 @@ namespace PrinterTimerControl
                 writer.WriteElementString("MigMaster", "True");
             writer.WriteEndElement();
             writer.Flush();
+            writer.Close();
         }       
     }
 }

@@ -1,10 +1,10 @@
-﻿Benvenuto nella versione 2.5 di PrinterTimerControl.
+﻿Benvenuto nella versione 2.6 di PrinterTimerControl.
 Qui di seguito saranno elencate le funzioni del file Impostazioni.xml
 
-<Path> Rappresenta il persorso della cartella da controllare
-<Delay> Rappresenta il tempo da aspettare prima di procedere con un nuovo controllo
-<AutomaticStart> 'true' 'false' indica che quando si avvia il programma comincia subito a controllare 
+<Path> Rappresenta il persorso della cartella che verrà controllata
+<Delay> Rappresenta il tempo che verrà aspettato prima di procedere con un nuovo controllo
+<AutomaticStart> 'true' 'false' indica se il programma viene eseguito insieme all'avvio di Windows
 <AutomaticPrint> 'true' 'false' Se attivo, invece di essere stampato a schermo, il file inviato alla stampante 
-<FileType> Rappresenta quale file controllare, filtra essi in base all'estenzione. Esempio: 'pdf'
-<UseDropbox> 'true' 'false' Determina se il programma usa una cartella locale o si confronta con Dropbox tramite internet
+<FileType> Rappresenta quale tipo di file verrà controllato, filtro in base all'estenzione. Esempio: 'pdf'
+<UseDropbox> 'true' 'false' Determina se il programma userà una cartella locale o si confronta con Dropbox tramite internet
 <MigMaster> 'true' 'false' Questo è opzionale, se impostato su 'true' andrà a modificare il file .mig che contiene la data del giorno. E' consigliato abilitare questa funzione solo se la data del computer è sempre aggiornata.

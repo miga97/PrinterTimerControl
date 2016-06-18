@@ -41,7 +41,7 @@
             this.txtToken.Location = new System.Drawing.Point(12, 12);
             this.txtToken.Name = "txtToken";
             this.txtToken.Size = new System.Drawing.Size(626, 26);
-            this.txtToken.TabIndex = 0;
+            this.txtToken.TabIndex = 1;
             // 
             // btnSalva
             // 
@@ -49,7 +49,7 @@
             this.btnSalva.Location = new System.Drawing.Point(563, 44);
             this.btnSalva.Name = "btnSalva";
             this.btnSalva.Size = new System.Drawing.Size(75, 36);
-            this.btnSalva.TabIndex = 1;
+            this.btnSalva.TabIndex = 3;
             this.btnSalva.Text = "Cambia";
             this.btnSalva.UseVisualStyleBackColor = true;
             this.btnSalva.Click += new System.EventHandler(this.btnSalva_Click);
@@ -61,7 +61,7 @@
             this.lblValida.Location = new System.Drawing.Point(12, 53);
             this.lblValida.Name = "lblValida";
             this.lblValida.Size = new System.Drawing.Size(268, 20);
-            this.lblValida.TabIndex = 2;
+            this.lblValida.TabIndex = 10;
             this.lblValida.Text = "Inserire il token dell\'account Dropbox";
             // 
             // btnAnnulla
@@ -71,13 +71,14 @@
             this.btnAnnulla.Location = new System.Drawing.Point(482, 44);
             this.btnAnnulla.Name = "btnAnnulla";
             this.btnAnnulla.Size = new System.Drawing.Size(75, 36);
-            this.btnAnnulla.TabIndex = 3;
+            this.btnAnnulla.TabIndex = 2;
             this.btnAnnulla.Text = "Annulla";
             this.btnAnnulla.UseVisualStyleBackColor = true;
             this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
             // 
             // CambiaToken
             // 
+            this.AcceptButton = this.btnSalva;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnAnnulla;
