@@ -77,7 +77,7 @@
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStop.Enabled = false;
             this.btnStop.ForeColor = System.Drawing.Color.DarkRed;
-            this.btnStop.Location = new System.Drawing.Point(433, 14);
+            this.btnStop.Location = new System.Drawing.Point(533, 14);
             this.btnStop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(112, 35);
@@ -90,7 +90,7 @@
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStart.ForeColor = System.Drawing.Color.Green;
-            this.btnStart.Location = new System.Drawing.Point(313, 14);
+            this.btnStart.Location = new System.Drawing.Point(413, 14);
             this.btnStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(112, 35);
@@ -102,7 +102,7 @@
             // btnCronologiStampa
             // 
             this.btnCronologiStampa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCronologiStampa.Location = new System.Drawing.Point(13, 302);
+            this.btnCronologiStampa.Location = new System.Drawing.Point(13, 306);
             this.btnCronologiStampa.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCronologiStampa.Name = "btnCronologiStampa";
             this.btnCronologiStampa.Size = new System.Drawing.Size(164, 35);
@@ -149,7 +149,7 @@
             this.dgvCronologia.Name = "dgvCronologia";
             this.dgvCronologia.ReadOnly = true;
             this.dgvCronologia.RowHeadersVisible = false;
-            this.dgvCronologia.Size = new System.Drawing.Size(652, 233);
+            this.dgvCronologia.Size = new System.Drawing.Size(752, 237);
             this.dgvCronologia.TabIndex = 11;
             this.dgvCronologia.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCronologia_CellContentClick);
             // 
@@ -200,7 +200,7 @@
             // 
             this.lblUltimoControllo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUltimoControllo.AutoSize = true;
-            this.lblUltimoControllo.Location = new System.Drawing.Point(391, 309);
+            this.lblUltimoControllo.Location = new System.Drawing.Point(491, 313);
             this.lblUltimoControllo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUltimoControllo.Name = "lblUltimoControllo";
             this.lblUltimoControllo.Size = new System.Drawing.Size(154, 20);
@@ -212,7 +212,7 @@
             this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker.CustomFormat = "yyyyMMdd";
             this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker.Location = new System.Drawing.Point(147, 16);
+            this.dateTimePicker.Location = new System.Drawing.Point(247, 16);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(159, 26);
             this.dateTimePicker.TabIndex = 13;
@@ -221,7 +221,7 @@
             // 
             this.btnImpostazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImpostazioni.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnImpostazioni.Location = new System.Drawing.Point(553, 14);
+            this.btnImpostazioni.Location = new System.Drawing.Point(653, 14);
             this.btnImpostazioni.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnImpostazioni.Name = "btnImpostazioni";
             this.btnImpostazioni.Size = new System.Drawing.Size(112, 35);
@@ -234,7 +234,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 344);
+            this.ClientSize = new System.Drawing.Size(778, 348);
             this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.lblUltimoControllo);
             this.Controls.Add(this.btnCronologiStampa);

@@ -10,7 +10,8 @@ namespace PrinterTimerControl
 {
     public partial class frmPrinterTimerControl : Form
     {
-        string versione = "2.4"; //sostituito il file di configurazione con uno in XML, apportate migliorie nella visualizzazione dei file, alla classe Sostituzione e alla gestione delle impostazioni, aggiunta la gestione della stampa da parte dell'utente, ora la visualizzazione a schermo continua a suonare finchè non confermi di averla guardata
+        string versione = "2.5"; //cambiati tutti i percorsi relativi in assoluti al fine di rendere possibile l'esecuzione da parte di System
+        //string versione = "2.4"; //sostituito il file di configurazione con uno in XML, apportate migliorie nella visualizzazione dei file, alla classe Sostituzione e alla gestione delle impostazioni, aggiunta la gestione della stampa da parte dell'utente, ora la visualizzazione a schermo continua a suonare finchè non confermi di averla guardata
         //string versione = "2.3"; //creazione di collegamenti nella cartella di avvio automatico
         //string versione = "2.2"; //criptazione del token di connessione (la classe che gestisce la criptazione non verrà publiccata per preservare la sicurezza)
         //string versione = "2.1"; //ora il file .mig viene aggiornato anche su dropbox online
@@ -29,15 +30,15 @@ namespace PrinterTimerControl
         }
         private void frmPrinterTimerControl_Load(object sender, EventArgs e)
         {
-            settings = new Settings();                       
+            settings = new Settings();
             Text = "Printer Timer Control rev. " + versione;            
             try
-            {                
-                if (settings.CaricaXML(@"Data\Impostazioni.xml"))
+            {
+                if (settings.CaricaXML(Application.StartupPath + @"\Data\Impostazioni.xml"))
                     MessageBox.Show("E' stato trovato un errore nel file di configurazione del programma. Contattare l'amministratore", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 btnCronologiStampa_Click(null, null);
                 if (settings.UseDropbox)
-                    settings.Path = @"Data\Download";
+                    settings.Path = Application.StartupPath + @"\Data\Download";
                 if (settings.MigMaster)
                     dateTimePicker.Visible = true;
                 else
@@ -164,7 +165,7 @@ namespace PrinterTimerControl
             bool stampa = true;
             try
             {
-                StreamReader leggi = new StreamReader(@"Data\CronologiaStampe.csv");
+                StreamReader leggi = new StreamReader(Application.StartupPath + @"\Data\CronologiaStampe.csv");
                 while (!leggi.EndOfStream)
                 {
                     if (leggi.ReadLine().Split(';')[0] == nomeFile)
@@ -197,7 +198,7 @@ namespace PrinterTimerControl
                 
                 // Sound
                 SoundPlayer Player = new SoundPlayer();
-                Player.SoundLocation = @"Data\Sound\StoreDoorChime.wav";
+                Player.SoundLocation = Application.StartupPath + @"\Data\Sound\StoreDoorChime.wav";
                 Player.Play();                
                 if (settings.AutomaticPrint)
                 {
@@ -218,7 +219,7 @@ namespace PrinterTimerControl
                 }
                                         
 
-                StreamWriter scrivi = new StreamWriter(@"Data\CronologiaStampe.csv", true);
+                StreamWriter scrivi = new StreamWriter(Application.StartupPath + @"\Data\CronologiaStampe.csv", true);
                 scrivi.WriteLine(nomeFile + ";" + nomeFile.Substring(8, 2) + "/" + nomeFile.Substring(6, 2) + "/" + nomeFile.Substring(2, 4) + ";" + nomeFile.Substring(11, 2) + ":" + nomeFile.Substring(13, 2) + ";" + nomeFile.Substring(22, 2) + "/" + nomeFile.Substring(20, 2) + "/" + nomeFile.Substring(16, 4) + ";" + DateTime.Now);
                 scrivi.Close();
                 btnCronologiStampa_Click(null, null);
@@ -251,8 +252,8 @@ namespace PrinterTimerControl
             try
             {
                 dgvCronologia.Rows.Clear();
-                StreamReader fileCronologia = new StreamReader(@"Data\CronologiaStampe.csv");
-                StreamWriter fileTemporaneo = new StreamWriter(@"Data\temp.csv");
+                StreamReader fileCronologia = new StreamReader(Application.StartupPath +@"\Data\CronologiaStampe.csv");
+                StreamWriter fileTemporaneo = new StreamWriter(Application.StartupPath + @"\Data\temp.csv");
                 while (!fileCronologia.EndOfStream)
                 {
                     temp = fileCronologia.ReadLine();
@@ -278,8 +279,8 @@ namespace PrinterTimerControl
                 }
                 fileTemporaneo.Close();
                 fileCronologia.Close();
-                File.Copy(@"Data\temp.csv", @"Data\CronologiaStampe.csv",true);
-                File.Delete(@"Data\temp.csv");
+                File.Copy(Application.StartupPath + @"\Data\temp.csv", Application.StartupPath + @"\Data\CronologiaStampe.csv", true);
+                File.Delete(Application.StartupPath + @"\Data\temp.csv");
             }
             catch
             {                
@@ -319,11 +320,12 @@ namespace PrinterTimerControl
         }                
         private async void Remember()
         {//serve per continuare a suonare finchè il nuovo file no viene visto
+            await Task.Delay(10000);
             while(!Viewed)
             {
                 // Sound
                 SoundPlayer Player = new SoundPlayer();
-                Player.SoundLocation = @"Data\Sound\StoreDoorChime.wav";
+                Player.SoundLocation = Application.StartupPath +@"\Data\Sound\StoreDoorChime.wav";
                 Player.Play();
 
                 await Task.Delay(10000); //ogni 10 secondi

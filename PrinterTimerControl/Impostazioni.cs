@@ -55,7 +55,7 @@ namespace PrinterTimerControl
             {
                 btnCambiaToken.Enabled = true;
                 btnCambiaCartellaLocale.Enabled = false;
-                txtbCartellaLocale.Text = @"Data\Download";
+                txtbCartellaLocale.Text = Application.StartupPath +@"\Data\Download";
             }
             else
             {
@@ -82,20 +82,20 @@ namespace PrinterTimerControl
             set.Delay = Convert.ToInt32(nudIntervalloTempo.Value);
             if (rbtnOnline.Checked && !set.UseDropbox || rbtnLocale.Checked && set.UseDropbox)
             {
-                System.IO.File.Delete(@"Data\CronologiaStampe.csv");
+                System.IO.File.Delete(Application.StartupPath + @"\Data\CronologiaStampe.csv");
                 if (rbtnLocale.Checked && set.UseDropbox)
                 {
-                    foreach (string file in Directory.GetFiles(@"Data\Download"))
+                    foreach (string file in Directory.GetFiles(Application.StartupPath + @"\Data\Download"))
                     {
                         System.IO.File.Delete(file);
                     }
-                    Directory.Delete(@"Data\Download");
+                    Directory.Delete(Application.StartupPath + @"\Data\Download");
                     Token.DeleteFile();
                 }
             }
             set.UseDropbox = rbtnOnline.Checked;
             set.AutomaticPrint = chckStampaAutomatica.Checked;
-            set.SalvaXML(@"Data\Impostazioni.xml");
+            set.SalvaXML(Application.StartupPath + @"\Data\Impostazioni.xml");
         }
         public void AttivaEsecuzioneAutomatica()
         {
