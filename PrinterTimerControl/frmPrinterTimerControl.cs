@@ -10,7 +10,8 @@ namespace PrinterTimerControl
 {
     public partial class frmPrinterTimerControl : Form
     {
-        string versione = "2.6"; //corretto salvataggio impostazioni, regolata la navigazione attraverso il tasto TAB
+        string versione = "2.7"; //piccole migliorie sull'avvio automatico e sulle impostazioni
+        //string versione = "2.6"; //corretto salvataggio impostazioni, regolata la navigazione attraverso il tasto TAB
         //string versione = "2.5"; //cambiati tutti i percorsi relativi in assoluti al fine di rendere possibile l'esecuzione da parte di System
         //string versione = "2.4"; //sostituito il file di configurazione con uno in XML, apportate migliorie nella visualizzazione dei file, alla classe Sostituzione e alla gestione delle impostazioni, aggiunta la gestione della stampa da parte dell'utente, ora la visualizzazione a schermo continua a suonare finchè non confermi di averla guardata
         //string versione = "2.3"; //creazione di collegamenti nella cartella di avvio automatico

@@ -1,4 +1,4 @@
-﻿Benvenuto nella versione 2.6 di PrinterTimerControl.
+﻿Benvenuto nella versione 2.7 di PrinterTimerControl.
 Qui di seguito saranno elencate le funzioni del file Impostazioni.xml
 
 <Path> Rappresenta il persorso della cartella che verrà controllata

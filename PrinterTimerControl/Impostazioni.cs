@@ -29,6 +29,7 @@ namespace PrinterTimerControl
         }
         private async void Impostazioni_Load(object sender, EventArgs e)
         {
+            btnSalva.Enabled = false;
             chckAccensioneAutomatica.Checked = set.AutomaticStart;
             chckStampaAutomatica.Checked = set.AutomaticPrint;
             nudIntervalloTempo.Value = set.Delay;
@@ -48,6 +49,7 @@ namespace PrinterTimerControl
                 txtInfoToken.Text = set.Connection.EmailAccount;
             }
             txtbCartellaLocale.Text = set.Path;
+            btnSalva.Enabled = true;
         }
         private void rbtnOnline_CheckedChanged(object sender, EventArgs e)
         {
@@ -75,7 +77,7 @@ namespace PrinterTimerControl
             {
                 set.AutomaticStart = false;
                 string pathLnk = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
-                if (System.IO.File.Exists(pathLnk))                
+                if (System.IO.File.Exists(pathLnk + @"\PrinterTimerControl.lnk"))                
                     System.IO.File.Delete(pathLnk + @"\PrinterTimerControl.lnk");
             }
             set.Path = txtbCartellaLocale.Text;
